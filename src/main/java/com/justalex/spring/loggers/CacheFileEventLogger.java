@@ -1,12 +1,12 @@
-package com.justalex.spring;
+package com.justalex.spring.loggers;
 
+import com.justalex.spring.beans.Event;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class CacheFileEventLogger extends FileEventLogger {

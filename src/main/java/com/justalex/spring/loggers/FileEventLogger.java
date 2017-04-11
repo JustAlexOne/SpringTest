@@ -1,5 +1,6 @@
-package com.justalex.spring;
+package com.justalex.spring.loggers;
 
+import com.justalex.spring.beans.Event;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

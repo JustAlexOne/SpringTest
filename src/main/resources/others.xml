@@ -7,17 +7,24 @@
 
     <import resource="loggers.xml"/>
 
-    <bean id="client" class="com.justalex.spring.Client">
+    <bean id="client" class="com.justalex.spring.beans.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="John Smith"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
 
     <bean id="app" class="com.justalex.spring.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="consoleEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="consoleEventLogger"/>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
 
-    <bean id="event" class="com.justalex.spring.Event" scope="prototype">
+    <bean id="event" class="com.justalex.spring.beans.Event" scope="prototype">
         <constructor-arg>
             <bean class="java.util.Date"/>
         </constructor-arg>

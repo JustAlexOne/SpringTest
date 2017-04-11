@@ -1,4 +1,4 @@
-package com.justalex.spring;
+package com.justalex.spring.beans;
 
 import java.text.DateFormat;
 import java.util.Date;

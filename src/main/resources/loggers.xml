@@ -5,13 +5,22 @@
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean id="consoleEventLogger" class="com.justalex.spring.ConsoleEventLogger"/>
+    <bean id="consoleEventLogger" class="com.justalex.spring.loggers.ConsoleEventLogger"/>
 
-    <bean id="fileEventLogger" class="com.justalex.spring.FileEventLogger" init-method="init">
+    <bean id="fileEventLogger" class="com.justalex.spring.loggers.FileEventLogger" init-method="init">
         <constructor-arg value="EventLogs.txt"/>
     </bean>
 
-    <bean id="cacheFileEventLogger" class="com.justalex.spring.CacheFileEventLogger" parent="fileEventLogger">
+    <bean id="cacheFileEventLogger" class="com.justalex.spring.loggers.CacheFileEventLogger" parent="fileEventLogger" destroy-method="destroy">
         <constructor-arg value="3" type="int"/>
     </bean>
+
+    <bean id="combinedEventLogger" class="com.justalex.spring.loggers.CombinedEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="consoleEventLogger"/>
+                <ref bean="cacheFileEventLogger"/>
+            </list>
+        </constructor-arg>
+</bean>
 </beans>

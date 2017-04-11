@@ -1,4 +1,6 @@
-package com.justalex.spring;
+package com.justalex.spring.loggers;
+
+import com.justalex.spring.beans.Event;
 
 public class ConsoleEventLogger implements EventLogger {
 

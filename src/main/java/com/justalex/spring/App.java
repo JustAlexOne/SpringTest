@@ -1,25 +1,37 @@
 package com.justalex.spring;
 
+import com.justalex.spring.enums.EventType;
+import com.justalex.spring.loggers.EventLogger;
+import com.justalex.spring.beans.Client;
+import com.justalex.spring.beans.Event;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Map;
 
 public class App {
 
     Client client;
-    EventLogger eventLogger;
+    EventLogger defaultLogger;
+    Map<EventType, EventLogger> loggers;
 
     private static ConfigurableApplicationContext ctx;
 
-    private void logEvent(String msg) {
+    private void logEvent(EventType type, String msg) {
+        EventLogger logger = loggers.get(type);
+        if (logger == null) {
+            logger = defaultLogger;
+        }
         String message = msg.replaceAll(client.getId(), client.getFullName());
         Event event = (Event) ctx.getBean("event");
         event.setMsg(message);
-        eventLogger.logEvent(event);
+        logger.logEvent(event);
     }
 
-    public App(Client client, EventLogger eventLogger) {
+    public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
         this.client = client;
-        this.eventLogger = eventLogger;
+        this.defaultLogger = eventLogger;
+        this.loggers = loggers;
     }
 
     public static void main(String[] args) {
@@ -27,12 +39,14 @@ public class App {
         App app = (App) ctx.getBean("app");
 
         app.client = (Client) ctx.getBean("client");
-        app.eventLogger = (EventLogger) ctx.getBean("cacheFileEventLogger");
 
-        app.logEvent("Some event for user 1");
-        app.logEvent("Some event for user 2");
-        app.logEvent("Some event for user 3");
-        app.logEvent("Some event for user 4");
+//        app.defaultLogger = (EventLogger) ctx.getBean("cacheFileEventLogger");
+
+        app.logEvent(EventType.INFO, "Log info 1");
+        app.logEvent(EventType.ERROR, "Log error 1");
+        app.logEvent(EventType.INFO, "Log info 2");
+        app.logEvent(EventType.ERROR, "Log error 2");
+        app.logEvent(null, "Log null 1");
 
         ctx.close();
     }
