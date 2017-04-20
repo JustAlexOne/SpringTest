@@ -22,7 +22,7 @@ public class App {
         if (logger == null) {
             logger = defaultLogger;
         }
-        String message = msg.replaceAll(client.getId(), client.getFullName());
+        String message = msg.replaceAll(client.getId(), client.getName());
         Event event = (Event) ctx.getBean("event");
         event.setMsg(message);
         logger.logEvent(event);

@@ -3,12 +3,12 @@ package com.justalex.spring.beans;
 public class Client {
 
     private String id;
-    private String fullName;
-    private String greeting;
+    private String name;
+    public String greeting;
 
-    public Client(String id, String fullName) {
+    public Client(String id, String name) {
         this.id = id;
-        this.fullName = fullName;
+        this.name = name;
     }
 
     public String getId() {
@@ -19,12 +19,12 @@ public class Client {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setGreeting(String greeting) {

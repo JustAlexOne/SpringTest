@@ -7,3 +7,5 @@
 
 # ignore Eclipse files
 /.settings
+
+/EventLogs.txt
